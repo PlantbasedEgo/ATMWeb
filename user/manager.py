@@ -31,9 +31,9 @@ class CustomAccountManager(BaseUserManager): #Create Manager for CustomUser
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_active", True)
-        extra_fields.setdefault("balance", None)
-        extra_fields.setdefault("withdrawal_fee", None)
-        extra_fields.setdefault("user_id", None)
+        extra_fields.setdefault("balance", None)            #set balance to Null for superuser 
+        extra_fields.setdefault("withdrawal_fee", None)     #set withdrawal_fee to Null for superuser
+        extra_fields.setdefault("user_id", None)            #set user_id to Null for superuser
         
 
         if extra_fields.get("is_staff") is not True:

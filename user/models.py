@@ -28,4 +28,4 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']   #A list of the field names that will be prompted for when creating a user via the createsuperuser. DEFAULT : REQUIRED_FIELDS = ["email"]
 
     def __str__(self):
-        return self.user_name
+        return self.username
