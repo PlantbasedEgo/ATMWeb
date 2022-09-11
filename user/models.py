@@ -9,10 +9,10 @@ from . manager import CustomAccountManager
 # --------------------Customize User---------------------------
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(_("Email Address"), unique=True)
     username = models.CharField(_("Username"), max_length=15, unique=True)
     first_name = models.CharField(_("First Name"), max_length=15)
     last_name = models.CharField(_("Last Name"), max_length=25)
-    email = models.EmailField(_("Email Address"), unique=True)
     balance = models.DecimalField(max_digits=12, decimal_places=3, default=0, null=True)
     withdrawal_fee = models.DecimalField(max_digits=6, decimal_places=4, default=1.0005, null=True)
     user_id = models.DecimalField(max_digits=5, decimal_places=0, default=0, null=True)
@@ -29,3 +29,5 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+
+
