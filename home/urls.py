@@ -1,6 +1,5 @@
 from django.urls import path
 
-from user.views import UserSignUpView
 from . views import HomePageView
 
 app_name = 'home_url'

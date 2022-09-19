@@ -142,3 +142,5 @@ AUTH_USER_MODEL = 'user.CustomUser' # tell django that we are using the new user
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static/"), #Have django check (BASE_DIR, "static/") for static files
 )
+
+LOGIN_REDIRECT_URL = 'home_url:home-home'

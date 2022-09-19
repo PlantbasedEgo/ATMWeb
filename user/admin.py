@@ -7,11 +7,11 @@ class UserAdminConfig(UserAdmin):
 
     model = CustomUser
 
-    list_display = ('email','user_id','username','first_name','last_name','is_active',
-     'is_staff', 'is_superuser') #Set list_display to control which fields are displayed on the change list page
+    list_display = ('email','user_id','username','first_name','last_name','balance','is_active',
+     'is_staff', 'is_superuser') #Set list_display to control which fields are displayed on the admin page
     ordering = ('-is_staff', '-username') #Set ordering to specify how lists of objects should be ordered in the Django admin views
     search_fields = ('email','user_id','username','first_name','last_name') #Set search_fields to enable a search box on the admin change list page
-    list_filter = ('username','first_name','last_name','is_active','is_staff','is_superuser') #Set list_filter to activate filters in the right sidebar of the change list page of the admin.
+    list_filter = ('is_active','is_staff','is_superuser') #Set list_filter to activate filters in the right sidebar of the change list page of the admin.
 
     add_fieldsets = (
         (None,      {'classes': ['wide'], 
