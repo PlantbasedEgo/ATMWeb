@@ -2,13 +2,13 @@
 
 {% block content %}
 
-    <h2>Log in</h2>
-
+    <h2>Deposit</h2>
+    <p>Current Balance : {{ request.user.balance }}</p>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Log in</button>
+        <button type="submit">Deposit</button>
     </form>
-    Need an account? <a href="{% url 'user_url:user-register' %}">Sign Up</a>
+
     
 {% endblock %}

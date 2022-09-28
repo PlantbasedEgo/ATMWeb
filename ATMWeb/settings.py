@@ -144,3 +144,4 @@ STATICFILES_DIRS = (
 )
 
 LOGIN_REDIRECT_URL = 'home_url:home-home'
+LOGIN_URL = 'user-login'    #set the location of redirection when the view has @login_required decoration

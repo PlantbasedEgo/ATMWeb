@@ -4,15 +4,39 @@
 
     {% if user.is_authenticated %}
 
-        <h2>Welcome {{ request.user.username }}</h2>
+        <h2>Welcome {{ request.user.username}}</h2>
 
-        <a href="{% url 'user_url:user-logout' %}">Log Out</a>
+        <nav>
+            <ul>
+                <li>
+                    <a href="">Account</a>
+                </li>
+                <li>
+                    <a href="">Transaction Log</a>
+                </li>
+                <li>
+                    <a href="{% url 'home_url:home-deposit' %}">Deposit</a>
+                </li>
+                <li>
+                    <a href="">Withdraw</a>
+                </li>
+                <li>
+                    <a href="">Transfer</a>
+                </li>
+                <li>
+                    <a href="{% url 'user_url:user-logout' %}">Log Out</a>
+                </li>
+            </ul>
+
+        </nav>
+
+        
 
     {% else %}
 
-        <a href= "{% url 'user_url:user-signup' %}">Create Account</a>
+        <a href= "{% url 'user_url:user-register' %}">Create Account</a>
         <a href="{% url 'user_url:user-login' %}">Log In</a>
-        
+
     {% endif %}
 
 {% endblock %}
