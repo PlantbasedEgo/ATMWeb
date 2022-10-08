@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Transfer</h2>
+    <p>Current Balance : {{ request.user.balance }}</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Transfer</button>
+    </form>
+
+    
+{% endblock %}
