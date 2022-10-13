@@ -43,9 +43,16 @@ class TransferForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         confirm_password = cleaned_data.get("confirm_password")
-
+        receive_username = cleaned_data.get("receive_username")
+        
         #check if the password user type is correct before withdraw
         if not self.user.check_password(confirm_password):          
             raise forms.ValidationError("Please reenter your password")
         
-        
+        #check if entered receive_username exists in .object.filter(username = receive_username)
+        if not CustomUser.objects.filter(username = receive_username).exists(): #exists() returns True if exists
+            raise forms.ValidationError("Please reenter the recipient username")
+
+        #check if entered receive_username is the same as the request user
+        if receive_username == self.user.username:
+            raise forms.ValidationError("Please reenter the recipient username, not yours")

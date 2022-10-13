@@ -2,12 +2,13 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, FormView
 from user.models import CustomUser
 from . forms import DepositForm, TransferForm, WithdrawForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
 class HomePageView(TemplateView):
     template_name = 'home/mainpage.html'  #default directory if template_name is not stated -> <app>/<model>_<viewtype>.html
 
-class DepositPageView(FormView):
+class DepositPageView(LoginRequiredMixin, FormView):
     model = CustomUser
     template_name = 'home/deposit.html'
     form_class = DepositForm
@@ -29,7 +30,7 @@ class DepositPageView(FormView):
         
         return super().form_valid(form)
 
-class WithdrawPageView(FormView):
+class WithdrawPageView(LoginRequiredMixin, FormView):
     model = CustomUser
     template_name = 'home/withdraw.html'
     form_class = WithdrawForm
@@ -56,7 +57,7 @@ class WithdrawPageView(FormView):
         kwargs.update({'user': self.request.user})
         return kwargs
 
-class TransferPageView(FormView):
+class TransferPageView(LoginRequiredMixin, FormView):
     model = CustomUser
     template_name = 'home/transfer.html'
     form_class = TransferForm
@@ -86,7 +87,8 @@ class TransferPageView(FormView):
 
         # save data of request user
         self.request.user.save()
-
+        receive_user.save()
+        
         return super().form_valid(form)
 
     def get_form_kwargs(self):  #Sending user to the form.py, since basic form and ModelForm can't 
