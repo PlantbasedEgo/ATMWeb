@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Transaction History</h2>
+    <p>Current User : {{ request.user.username}}</p>
+    <p>Current Balance : {{ request.user.balance }}</p>
+
+    {% for log in request.user.activities_log reversed%}
+        <p>{{ log }}</p>
+    {% endfor %}
+
+    
+{% endblock %}
