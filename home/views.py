@@ -94,9 +94,7 @@ class WithdrawPageView(LoginRequiredMixin, FormView):
             'type' : 'Withdraw',
             'detail' : 'Withdraw',
             'amount' : withdraw_amount,
-            'time' : current_time}, cls = Extra_JsonEncoder)  
-
-
+            'time' : current_time}, cls = Extra_JsonEncoder)
 
         current_user.balance -= withdraw_amount
         current_user.activities_log.append(json_action_log)

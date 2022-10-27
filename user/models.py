@@ -21,7 +21,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     about = models.TextField(_("About"), max_length = 250, blank = True)
     date_joined = models.DateTimeField(_("Date join"), default=timezone.now)
     is_staff = models.BooleanField(default = False)
-    is_active = models.BooleanField(default = False)
+    is_active = models.BooleanField(default = True)
 
     objects = CustomAccountManager()
 
