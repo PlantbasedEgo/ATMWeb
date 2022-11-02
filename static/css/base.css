@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #FFFFFA;
+}
+
+.jp-script{
+    color: lightskyblue;
+    width: 6rem;
+    height: 22.5rem;
+    margin: 45vh 0 0 85vw;
+    font-size: 2.5rem;
+    font-family: 'MS Mincho';
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    line-height: 1.2;
+
+}
+
+.jp-script > p + p {
+    text-indent: 2.5rem;
+}
+
+.extended-contents {
+    margin-top: 50vh;
+}
+
+footer{
+    margin-top: 55vh;
+    min-height: 38vh;
+    background-color: lightskyblue;
+}
+
+footer
+a,
+li{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    color: white;
+    transition-delay: 100ms;
+    transition-duration: 750ms;
+}
+
+footer
+:hover:not(.company-copyright, .company-address) {
+    color: lightslategrey;
+}
+
+footer
+.medialogo + section {
+    display: flex;
+    justify-content: space-between;
+}
+
+footer
+.medialogo + section 
+ul{
+    list-style-type: none;
+}
+
+footer 
+.medialogo {
+    margin-left: 2rem;
+}
+
+footer 
+.medialogo 
+li{
+    display: inline-block;
+}
+
+footer
+.medialogo
+img {
+    margin: 2rem 0.5rem 2rem 0.5rem;
+    height: auto;
+    width: auto;
+    max-width: 2rem;
+    max-height: 2rem;
+    text-align: center;
+}
+
+footer
+.left-footer
+li{
+    margin-top: 1rem;
+}
+
+footer
+.left-footer
+ul{
+    margin: -1.5rem 0 0 2.5rem;
+}
+
+footer
+.left-footer
+li:nth-child(2) {
+    max-width: 14rem;
+}
+
+footer
+.left-footer
+li:last-child {
+    margin-bottom: 2rem;
+}
+
+footer
+.right-footer
+ul {
+    margin: -3rem 10rem 0 0;
+    line-height: 1.75;
+}

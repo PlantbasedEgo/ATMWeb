@@ -1,13 +1,15 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, FormView
 from user.models import CustomUser
+from django.views.generic import TemplateView, FormView
 from . forms import DepositForm, TransferForm, WithdrawForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import F
 from django.urls import reverse_lazy
 from django.utils import timezone
 from datetime import datetime
 from decimal import *
 import json
+
 
 log_count = 5
 current_time = timezone.now()
@@ -62,13 +64,15 @@ class DepositPageView(LoginRequiredMixin, FormView):
             'time' : current_time}, cls = Extra_JsonEncoder)    #cls specify which JsonEncoder to use when calling dumps(), in this case we use Extra_JsonEncoder
 
         if len(current_user.activities_log) > log_count:
-            del current_user.activities_log[0]
-     
-        current_user.balance += deposit_amount
+            deleted_indexes = len(current_user.activities_log) - log_count + 1 # +1 for counting the new append afterward
+            del current_user.activities_log[:deleted_indexes]
+
         current_user.activities_log.append(json_action_log)
+        current_user.balance += F('balance') + deposit_amount
 
         current_user.save()
-        
+        current_user.refresh_from_db()
+
         return super().form_valid(form)
 
 class WithdrawPageView(LoginRequiredMixin, FormView):
@@ -96,12 +100,16 @@ class WithdrawPageView(LoginRequiredMixin, FormView):
             'amount' : withdraw_amount,
             'time' : current_time}, cls = Extra_JsonEncoder)
 
-        current_user.balance -= withdraw_amount
-        current_user.activities_log.append(json_action_log)
         if len(current_user.activities_log) > log_count:
-            del current_user.activities_log[0]
+            deleted_indexes = len(current_user.activities_log) - log_count + 1
+            del current_user.activities_log[:deleted_indexes]
 
+        current_user.activities_log.append(json_action_log)
+        current_user.balance = F('balance') - withdraw_amount
+
+            
         current_user.save()
+        current_user.refresh_from_db()
 
         return super().form_valid(form)
 
@@ -142,7 +150,7 @@ class TransferPageView(LoginRequiredMixin, FormView):
         json_action_log = json.dumps({
             'username' : current_user.username,
             'first' : current_user.first_name, 
-            # 'id' : current_user.id, TO BE IMPLEMENTED
+            # 'id' : current_user.id, TO BE IMPLEMENTED ?
             'type' : 'Transfer',
             'recipient' : receive_user.username,
             'amount' : withdraw_amount,
@@ -151,7 +159,7 @@ class TransferPageView(LoginRequiredMixin, FormView):
         json_recipient_log = json.dumps({
             'username' : receive_user.username,
             'first' : receive_user.first_name, 
-            # 'id' : current_user.id, TO BE IMPLEMENTED
+            # 'id' : current_user.id, TO BE IMPLEMENTED ?
             'type' : 'Transfer',
             'donor' : receive_user.username,
             'amount' : withdraw_amount,
@@ -161,16 +169,20 @@ class TransferPageView(LoginRequiredMixin, FormView):
         current_user.activities_log.append(json_action_log)
         receive_user.activities_log.append(json_recipient_log)
         if len(current_user.activities_log)> log_count:
-            del current_user.activities_log[0]
+            deleted_indexes = len(current_user.activities_log) - log_count + 1
+            del current_user.activities_log[:deleted_indexes]
         if len(receive_user.activities_log)> log_count:
-            del receive_user.activities_log[0]
+            deleted_indexes = len(receive_user.activities_log) - log_count + 1    
+            del receive_user.activities_log[:deleted_indexes]
 
-        current_user.balance -= withdraw_amount
-        receive_user.balance += withdraw_amount
+        current_user.balance = F('balance') - withdraw_amount
+        receive_user.balance = F('balance') + withdraw_amount
 
         # save data of request user
         current_user.save()
+        current_user.refresh_from_db()
         receive_user.save()
+        current_user.refresh_from_db()
         
         return super().form_valid(form)
 

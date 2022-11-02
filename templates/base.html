@@ -1,3 +1,4 @@
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -6,8 +7,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'mainpage.css' %}">
-    <title>Document</title>
+    <!-- Base CSS  -->
+    <link rel="stylesheet" href= "{% static 'css/base.css' %}">
+    <!-- Extended Contents for CSS  -->
+    {% block style %} {% endblock %}
+    <title>ATMWeb</title>
+
 </head>
 
 <body>
@@ -18,58 +23,52 @@
     </div>
 
     <!-- Extended Contents -->
-    {% block content %} 
-    {% endblock %}
+    <section class="extended-contents">
+        {% block content %} {% endblock %}
+    </section>
 
     <footer>
         <!-- Media logos -->
         <section class="medialogo"> 
             <nav>
                 <ul>
-                    <li> <a href="#">placeholder</a> </li>
-                    <li> <a href="#">placeholder</a> </li>
-                    <li> <a href="#">placeholder</a> </li>
+                    <li> 
+                        <a href="#"> <img src="../static/logos/TwitterWhiteLogo.png" alt="Twitter Logo"></a>
+                    </li>
+                    <li> 
+                        <a href="#"> <img src="../static/logos/YoutubeWhiteLogo.png" alt="Youtube Logo"></a> 
+                    </li>
+                    <li> 
+                        <a href="#"> <img src="../static/logos/MailWhiteEnvelope.png" alt="Mail Envelope"></a> 
+                    </li>
                 </ul>
             </nav>
         </section>
 
-        <!-- Placeholder1 -->
-        <section class="placeholder1">
+        <section>
+            <section class="left-footer">
+                <nav>
+                    <ul>
+                        <li class="company-copyright"> &#169; Ausui, Inc.</li>
+                        <li class="company-address">5 Chome-X-XX Roppongi, Minato City, Tokyo 106-0032, Japan</li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </nav>
+            </section>
 
-            <span>placeholder</span>
+            <section class="right-footer">
+                <nav>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Career</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Emporium</a></li>
+                    </ul>
+                </nav>
+            </section>
 
-            <nav>
-                <ul>
-                    <li><a href="#">placeholder</a></li>
-                    <li><a href="#">placeholder</a></li>
-                </ul>
-            </nav>
-        </section>
-        
-        <!-- Placeholder2 -->
-        <section class="placeholder2">
-
-            <span>placeholder3</span>
-
-            <nav>
-                <ul>
-                    <li><a href="#">placeholder</a></li>
-                    <li><a href="#">placeholder</a></li>
-                </ul>
-            </nav>
-        </section>
-
-        <!-- Placeholder3 -->
-        <section class="placeholder3">
-
-            <span>placeholder3</span>
-
-            <nav>
-                <ul>
-                    <li><a href="#">placeholder</a></li>
-                    <li><a href="#">placeholder</a></li>
-                </ul>
-            </nav>
         </section>
     </footer>
 </body>
