@@ -1,14 +1,34 @@
 {% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block styles %}
+
+    <link rel="stylesheet" href="{% static 'css/transfer.css' %}">
+    
+{% endblock %}
 
 {% block content %}
 
-    <h2>Transfer</h2>
-    <p>Current Balance : {{ request.user.balance }}</p>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Transfer</button>
-    </form>
-
+    <section class="transferpage">
+        <section class="transfer-content">
+            <h2>Transfer</h2>
+            <p>Current Balance : {{ request.user.balance }}</p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="transfer-input">
+                    {{ form.non_field_errors }}        <!-- tag for rasing validationerror -->
+                    <span>Amount</span>
+                    {% render_field form.amount class="deposit-box1" placeholder="Enter Transfer Amount" %} 
+                    <span>Recipient</span>
+                    {% render_field form.receive_username class="deposit-box2" placeholder="Enter Recipient Username" %}
+                    <span>Password</span>
+                    {% render_field form.confirm_password class="password-box" placeholder="Password" %}
+                </div>
+                <button type="submit">Transfer</button>
+            </form>
+        </section>
+        <div class="polkadot"></div>
+    </section>
     
 {% endblock %}

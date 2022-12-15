@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <section class="signup-page">
+        <section class="signup-form">
+            <h2>Sign up</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="username-input">
+                    <span>Username</span>
+                    {% render_field form.username class="input-box" placeholder=" " %} 
+                </div>
+                <div class="email-input">
+                    <span>Email</span>
+                    {% render_field form.email class="input-box" placeholder=" " %}
+                </div>
+                <div class="first-input">
+                    <span>First Name</span>
+                    {% render_field form.first_name class="input-box" placeholder=" " %}
+                </div>
+                <div class="last-input">
+                    <span>Last Name</span>
+                    {% render_field form.last_name class="input-box" placeholder=" " %}
+                </div>
+                <div class="pass1-input">
+                    <span>Password</span>
+                    {% render_field form.password1 class="input-box" placeholder=" " %}
+                </div>
+                <div class="pass2-input">
+                    <span>Password Confirmation</span>
+                    {% render_field form.password2 class="input-box" placeholder=" " %}
+                </div>
+
+                <button type="submit">Sign Up</button>
+
+                </form>
+
+                <div class="login-at-signup">
+                    Already have an account? <a href="{% url 'user_url:user-login' %}">Log In</a>
+                </div>
+
+            <div class="copyright">
+                &#169; 2022 Ausui Corp. All rights reserved.
+            </div>
+        </section>
+        <div class="polkadot"></div>
+    </section>
+
+
+
+{% endblock %}

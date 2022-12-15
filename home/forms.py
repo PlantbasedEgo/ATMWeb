@@ -1,7 +1,6 @@
 from django import forms
 from user.models import CustomUser
 
-
 class DepositForm(forms.Form):
     amount = forms.DecimalField(max_digits=12, decimal_places=3)
 
@@ -23,14 +22,15 @@ class WithdrawForm(forms.ModelForm):
 
         amount = cleaned_data.get("amount")
         confirm_password = cleaned_data.get("confirm_password")
-
-        #check if the password user type is correct before withdraw
-        if not self.user.check_password(confirm_password):          
-            raise forms.ValidationError("Please reenter your password")
             
         # check if balance is less than transfer amount
         if self.user.balance - amount < 0:          
             raise forms.ValidationError("Balance is not enought to make a withdraw")
+
+        # check if the password user type is correct before withdraw
+        if not self.user.check_password(confirm_password):        
+            raise forms.ValidationError("Please reenter your password")
+
 
 class TransferForm(forms.ModelForm):
     amount = forms.DecimalField(max_digits=12, decimal_places=3)
@@ -57,10 +57,6 @@ class TransferForm(forms.ModelForm):
         # check if balance is less than transfer amount
         if self.user.balance - amount < 0:          
             raise forms.ValidationError("Balance is not enought to make a transfer")
-
-        #check if the password user type is correct before withdraw
-        if not self.user.check_password(confirm_password):          
-            raise forms.ValidationError("Please reenter your password")
         
         #check if entered receive_username exists in database
         if not CustomUser.objects.filter(username = receive_username).exists(): #exists() returns True if exists
@@ -69,3 +65,7 @@ class TransferForm(forms.ModelForm):
         #check if entered receive_username is the same as the request user
         if receive_username == self.user.username:
             raise forms.ValidationError("Please reenter the recipient username, not yours")
+                    
+        #check if the password user type is correct before withdraw
+        if not self.user.check_password(confirm_password):          
+            raise forms.ValidationError("Please reenter your password")

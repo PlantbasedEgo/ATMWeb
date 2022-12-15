@@ -1,14 +1,32 @@
 {% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block styles %}
+
+    <link rel="stylesheet" href="{% static 'css/withdraw.css' %}">
+    
+{% endblock %}
 
 {% block content %}
 
-    <h2>Withdraw</h2>
-    <p>Current Balance : {{ request.user.balance }}</p>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Withdraw</button>
-    </form>
-
+    <section class="withdrawpage">
+        <section class="withdraw-content">
+            <h2>Withdraw</h2>
+            <p>Current Balance : {{ request.user.balance }}</p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="withdraw-input">
+                    {{ form.non_field_errors }}        <!-- tag for rasing validationerror -->
+                    <span>Amount</span>
+                    {% render_field form.amount class="withdraw-box" placeholder="Enter Withdraw Amount" %} 
+                    <span>Password</span>
+                    {% render_field form.confirm_password class="password-box" placeholder="Password" %}
+                </div>
+                <button type="submit">Withdraw</button>
+            </form>
+        </section>
+        <div class="polkadot"></div>
+    </section>
     
 {% endblock %}

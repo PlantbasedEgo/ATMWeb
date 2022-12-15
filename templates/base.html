@@ -1,5 +1,6 @@
 
 {% load static %}
+{% load widget_tweaks %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,9 +9,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Base CSS  -->
-    <link rel="stylesheet" href= "{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <!-- Extended Contents for CSS  -->
-    {% block style %} {% endblock %}
+    {% block styles %} {% endblock %}
     <title>ATMWeb</title>
 
 </head>
@@ -20,8 +21,15 @@
     <div class="jp-script">
         <p lang="jp-JP"> 現金自動預払機</p>
         <p lang="jp-JP"> にアクセスする。</p>
+        <img src="/static/logos/down-arrow (2).png" alt="Arrow Down">
     </div>
 
+    {% if messages %}
+        {% for message in messages %}
+            <div class = flash-message> {{ message }} </div>
+        {% endfor %}
+    {% endif %}
+    
     <!-- Extended Contents -->
     <section class="extended-contents">
         {% block content %} {% endblock %}
@@ -33,13 +41,13 @@
             <nav>
                 <ul>
                     <li> 
-                        <a href="#"> <img src="../static/logos/TwitterWhiteLogo.png" alt="Twitter Logo"></a>
+                        <a href="#"> <img src="/static/logos/TwitterWhiteLogo.png" alt="Twitter Logo"></a>
                     </li>
                     <li> 
-                        <a href="#"> <img src="../static/logos/YoutubeWhiteLogo.png" alt="Youtube Logo"></a> 
+                        <a href="#"> <img src="/static/logos/YoutubeWhiteLogo.png" alt="Youtube Logo"></a> 
                     </li>
                     <li> 
-                        <a href="#"> <img src="../static/logos/MailWhiteEnvelope.png" alt="Mail Envelope"></a> 
+                        <a href="#"> <img src="/static/logos/MailWhiteEnvelope.png" alt="Mail Envelope"></a> 
                     </li>
                 </ul>
             </nav>
@@ -49,7 +57,7 @@
             <section class="left-footer">
                 <nav>
                     <ul>
-                        <li class="company-copyright"> &#169; Ausui, Inc.</li>
+                        <li class="company-copyright"> &#169; Ausui Corp.</li>
                         <li class="company-address">5 Chome-X-XX Roppongi, Minato City, Tokyo 106-0032, Japan</li>
                         <li><a href="#">Terms & Conditions</a></li>
                     </ul>

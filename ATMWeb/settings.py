@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user.apps.UserConfig',
     'home.apps.HomeConfig',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -145,4 +146,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'user.CustomUser' # tell django that we are using the new user model
 
 LOGIN_REDIRECT_URL = 'home_url:home-home'
+
 LOGIN_URL = 'user-login'    #set the location of redirection when the view has @login_required decoration

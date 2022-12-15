@@ -1,0 +1,137 @@
+
+@use 'abstracts' as *;
+
+// @use and @forward only work with dart-sass
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: $main-white;
+}
+
+.jp-script{
+    color: $main-blue;
+    width: 6rem;
+    height: 22.5rem;
+    margin: 45vh 0 8vh 85vw;
+    font-size: 2.5rem;
+    font-family: 'MS Mincho';
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    line-height: 1.2;
+
+    > p + p {
+        text-indent: 2.5rem;
+    }
+    
+    img {
+        position: absolute;
+        margin: auto;
+        right: 0;
+        left: 0;
+        bottom: 3rem;
+
+
+        animation: 2500ms linear 2000ms infinite normal arrow-accelerate-down;
+        opacity: 0;
+    }
+
+    @keyframes arrow-accelerate-down {
+        0% {
+            opacity: 0 ;
+        }
+        33% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        66% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(2rem);
+            opacity: 0;
+        }
+    }
+
+}
+
+.flash-message {
+    color: $main-white;
+    border: 1rem solid $main-blue;
+    background-color: $main-blue;
+}
+
+footer {
+    min-height: 40vh;
+    background-color: $main-blue;
+    
+    a, li {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        text-decoration: none;
+        color: $main-white;
+        transition-delay: 100ms;
+        transition-duration: 750ms;
+    }
+
+    :hover:not(.company-copyright, .company-address) {
+        color: $footer-color-hover;
+    }
+
+    .medialogo {
+        margin-left: 2rem;
+
+        li{
+            display: inline-block;
+        }
+        
+        img {
+            margin: 2rem 0.5rem;
+            height: auto;
+            width: auto;            //have width&height auto, and set max width&height to make sure that logos have the same size to each other (aspect ratio)
+            max-width: 2rem;
+            max-height: 2rem;
+            text-align: center;
+        }
+    }
+
+    .medialogo + section {
+        display: flex;
+        justify-content: space-between;
+
+        ul {
+            list-style-type: none;
+        }
+    }
+
+    .left-footer {
+
+        ul{
+            margin: -1.5rem 0 0 2.5rem;
+        }
+
+        li{
+            margin-top: 1rem;
+        }
+
+        li:last-child {
+            margin-bottom: 2rem;
+        }
+
+        li:nth-child(2) {
+            max-width: 14rem;
+        }
+    }
+
+    .right-footer {
+
+        ul {
+            margin: -3rem 10rem 0 0;
+            line-height: 1.75;
+        }
+    }
+
+    
+}

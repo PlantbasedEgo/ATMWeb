@@ -1,0 +1,77 @@
+.extended-contents {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+.extended-contents .signup-page {
+  background: linear-gradient(to right, lightskyblue 50%, #F3FAFF 50%);
+  width: 50rem;
+  height: 30rem;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.extended-contents .signup-page .signup-form {
+  margin: 5% 0 0 55%;
+  color: #434343;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.extended-contents .signup-page .signup-form form {
+  padding: 5% 0 0 0;
+}
+.extended-contents .signup-page .signup-form form span {
+  font-size: 0.8rem;
+}
+.extended-contents .signup-page .signup-form .input-box {
+  display: block;
+  height: 1.5rem;
+  width: 80%;
+  border-radius: 15px;
+  border: 0;
+  padding-left: 5%;
+}
+.extended-contents .signup-page .signup-form .input-box:focus {
+  outline: none;
+}
+.extended-contents .signup-page .signup-form button {
+  margin-top: 5%;
+  width: 80%;
+  height: 2rem;
+  border-radius: 15px;
+  border: 0;
+  color: white;
+  background-color: lightskyblue;
+  font-size: 1rem;
+}
+.extended-contents .signup-page .signup-form button:hover {
+  background-color: #9FD8FB;
+  cursor: pointer;
+}
+.extended-contents .signup-page .signup-form .login-at-signup {
+  margin-top: 10%;
+  font-size: 0.8rem;
+}
+.extended-contents .signup-page .signup-form .login-at-signup a, .extended-contents .signup-page .signup-form .login-at-signup a:link, .extended-contents .signup-page .signup-form .login-at-signup a:visited, .extended-contents .signup-page .signup-form .login-at-signup a:active {
+  color: lightskyblue;
+  text-decoration: none;
+}
+.extended-contents .signup-page .signup-form .login-at-signup a:hover {
+  color: #9FD8FB;
+}
+.extended-contents .signup-page .signup-form .copyright {
+  color: #D9D9D9;
+  margin-top: 5%;
+  font-size: 0.6rem;
+}
+.extended-contents .signup-page .polkadot {
+  position: absolute;
+  top: 0;
+  background-image: radial-gradient(white 20%, transparent 20%), radial-gradient(white 20%, transparent 20%);
+  height: 30rem;
+  width: 25rem;
+  background-position: 0px 0px, 44px 44px;
+  background-size: 88px 88px;
+}

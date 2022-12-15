@@ -3,12 +3,14 @@ from user.models import CustomUser
 from django.views.generic import TemplateView, FormView
 from . forms import DepositForm, TransferForm, WithdrawForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import F
 from django.urls import reverse_lazy
 from django.utils import timezone
 from datetime import datetime
 from decimal import *
 import json
+from django.contrib import messages
 
 
 log_count = 5
@@ -24,11 +26,13 @@ class Extra_JsonEncoder(json.JSONEncoder):
             return str(obj)
         return json.JSONEncoder.default(self, obj) # how about use super(). like in https://stackoverflow.com/questions/65338261/combine-multiple-json-encoders ?
         
-class HomePageView(TemplateView):
+class HomePageView(LoginRequiredMixin, TemplateView):
     template_name = 'home/mainpage.html'  #default directory if template_name is not stated -> <app>/<model>_<viewtype>.html
-
-class TransactionLogPageView(TemplateView):
+    login_url = reverse_lazy('user_url:user-login')
+    
+class TransactionLogPageView(LoginRequiredMixin, TemplateView):
     template_name = 'home/transactionlog.html'
+    login_url = reverse_lazy('user_url:user-login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -37,11 +41,13 @@ class TransactionLogPageView(TemplateView):
         
         return context
 
-class DepositPageView(LoginRequiredMixin, FormView):
+class DepositPageView(SuccessMessageMixin, LoginRequiredMixin, FormView):
     model = CustomUser
     template_name = 'home/deposit.html'
     form_class = DepositForm
     success_url = reverse_lazy('home_url:home-home')
+    success_message = "Fund has been deposited successfully"
+    login_url = reverse_lazy('user_url:user-login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -75,11 +81,14 @@ class DepositPageView(LoginRequiredMixin, FormView):
 
         return super().form_valid(form)
 
-class WithdrawPageView(LoginRequiredMixin, FormView):
+class WithdrawPageView(SuccessMessageMixin, LoginRequiredMixin, FormView):
     model = CustomUser
     template_name = 'home/withdraw.html'
     form_class = WithdrawForm
     success_url = reverse_lazy('home_url:home-home')
+    success_message = "Fund has been withdrawn successfully"
+    login_url = reverse_lazy('user_url:user-login')
+    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -118,11 +127,14 @@ class WithdrawPageView(LoginRequiredMixin, FormView):
         kwargs.update({'user': self.request.user})
         return kwargs
 
-class TransferPageView(LoginRequiredMixin, FormView):
+class TransferPageView(SuccessMessageMixin, LoginRequiredMixin, FormView):
     model = CustomUser
     template_name = 'home/transfer.html'
     form_class = TransferForm
+    login_url = reverse_lazy('user_url:user-login')
     success_url = reverse_lazy('home_url:home-home')
+    success_message = "Fund has been transfered successfully"
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

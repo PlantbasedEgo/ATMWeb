@@ -1,14 +1,32 @@
 {% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %} <!-- We use widget_tweaks so that we can add widget for form -->
+
+{% block styles %}
+
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+{% endblock %}
+
 
 {% block content %}
-
-    <h2>Log in</h2>
-
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Log in</button>
-    </form>
-    Need an account? <a href="{% url 'user_url:user-register' %}">Sign Up</a>
-    
+    <section class="login-page">
+        <section class="login-form">
+            <h2>Log in</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="email-input">
+                    <span>Email</span>
+                    {% render_field form.username class="input-box" placeholder="mail@example.com" %} <!-- form.username, instead of form.email because in model USERNAME_FIELD = 'email', and AuthenicationForm only has username field, not email -->
+                </div>
+                <div class="password-input">
+                    <span>Password</span>
+                    {% render_field form.password class="input-box" placeholder="password" %}
+                </div>
+                <button type="submit">Log in</button>
+            </form>
+            </div>
+        </section>
+        <div class="polkadot"></div>
+    </section>
 {% endblock %}

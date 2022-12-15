@@ -1,20 +1,28 @@
 {% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
 
 {% block styles %}
 
-    <link rel="stylesheet" href="{% static 'home/deposit.css' %}">
+    <link rel="stylesheet" href="{% static 'css/deposit.css' %}">
     
 {% endblock %}
 
 {% block content %}
-
-    <h2>Deposit</h2>
-    <p>Current Balance : {{ request.user.balance }}</p>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Deposit</button>
-    </form>
-
-    
+    <section class="depositpage">
+        <section class="deposit-content">
+            <h2>Deposit</h2>
+            <p>Current Balance : {{ request.user.balance }}</p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="deposit-input">
+                    {{ form.non_field_errors }}        <!-- tag for rasing validationerror -->
+                    <span>Amount</span>
+                    {% render_field form.amount class="deposit-box" placeholder="Enter Deposit Amount" %} 
+                </div>
+                <button type="submit">Deposit</button>
+            </form>
+        </section>
+        <div class="polkadot"></div>
+    </section>
 {% endblock %}
