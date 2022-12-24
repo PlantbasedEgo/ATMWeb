@@ -3,7 +3,7 @@ from . models import CustomUser
 from django.contrib.auth.admin import UserAdmin
 from django.forms import Textarea
 
-class UserAdminConfig(UserAdmin):
+class UserAdminConfig(UserAdmin): # check the link to see why we use UserAdmin https://docs.djangoproject.com/en/4.1/topics/auth/customizing/
 
     model = CustomUser
 

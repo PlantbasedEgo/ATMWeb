@@ -17,7 +17,7 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="withdraw-input">
-                    {{ form.non_field_errors }}        <!-- tag for rasing validationerror -->
+                    {{ form.non_field_errors }}        <!-- form that also show validationerror from form if there is one  -->
                     <span>Amount</span>
                     {% render_field form.amount class="withdraw-box" placeholder="Enter Withdraw Amount" %} 
                     <span>Password</span>

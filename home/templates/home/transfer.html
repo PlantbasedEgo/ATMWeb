@@ -17,7 +17,7 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="transfer-input">
-                    {{ form.non_field_errors }}        <!-- tag for rasing validationerror -->
+                    {{ form.non_field_errors }}        <!-- form that also show validationerror from form if there is one  -->
                     <span>Amount</span>
                     {% render_field form.amount class="deposit-box1" placeholder="Enter Transfer Amount" %} 
                     <span>Recipient</span>

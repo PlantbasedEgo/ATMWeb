@@ -10,14 +10,12 @@ from django.utils import timezone
 from datetime import datetime
 from decimal import *
 import json
-from django.contrib import messages
-
 
 log_count = 5
 current_time = timezone.now()
 
-# json.dumps() method but the method doesn't handle Decimal values by default.
-# To solve the error, extend from the JSONEncoder class and convert Decimal values to a string when serializing them.
+# json.dumps() doesn't handle Decimal values by default.
+# To solve the problem, inherit from the JSONEncoder class and convert Decimal values to a string when serializing them.
 class Extra_JsonEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Decimal):
@@ -25,7 +23,8 @@ class Extra_JsonEncoder(json.JSONEncoder):
         if isinstance(obj, datetime):
             return str(obj)
         return json.JSONEncoder.default(self, obj) # how about use super(). like in https://stackoverflow.com/questions/65338261/combine-multiple-json-encoders ?
-        
+        # return super().default(obj) also works (works best with just one inheritance)  # https://www.youtube.com/watch?v=RSl87lqOXDE&t=847s 8:30
+        # return json.JSONEncoder.default(self, obj) (works best more multiple inheritance since we call on specific inheritance)(doesn't follow MRO)
 class HomePageView(LoginRequiredMixin, TemplateView):
     template_name = 'home/mainpage.html'  #default directory if template_name is not stated -> <app>/<model>_<viewtype>.html
     login_url = reverse_lazy('user_url:user-login')
@@ -52,8 +51,8 @@ class DepositPageView(SuccessMessageMixin, LoginRequiredMixin, FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['current_user'] = CustomUser.objects.get(username = self.request.user.username)
-
+        context['current_user'] = CustomUser.objects.get(username = self.request.user.username) #https://docs.djangoproject.com/en/4.1/topics/auth/default/#authentication-in-web-requests
+                                                                                                #https://docs.djangoproject.com/en/4.1/ref/request-response/#django.http.HttpRequest.user
         return context
 
     def form_valid(self, form):

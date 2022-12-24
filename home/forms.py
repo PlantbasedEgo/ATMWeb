@@ -13,7 +13,7 @@ class WithdrawForm(forms.ModelForm):
         fields = ['amount', 'confirm_password']
 
     def __init__(self, *args, **kwargs): # *connects with def get_context_data(self, **kwargs):
-        self.user = kwargs.pop('user')
+        self.user = kwargs.pop('user')  # get context from view
 
         super().__init__(*args, **kwargs)
     
